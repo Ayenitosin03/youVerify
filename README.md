@@ -111,13 +111,6 @@ Modify the `BASE_URL` in the `.env` file to switch between environments:
 - **Staging:** Use `BASE_URL_STAGE`.
 - **Production:** Use `BASE_URL`.
 
----
-
-## Reporting
-The project integrates `cypress-mochawesome-reporter` for generating reports. Reports will be available in the `cypress/reports` directory after a test run. To view the report:
-```bash
-npx mochawesome-merge cypress/reports/*.json | npx mochawesome-report-generator
-```
 
 ---
 
@@ -134,6 +127,26 @@ npx mochawesome-merge cypress/reports/*.json | npx mochawesome-report-generator
 4. Push to the branch and create a pull request.
 
 ---
+# CI/CD 
+
+## Key Points
+**Triggering Events:** The workflow runs on pushes and pull requests to the main branch.
+
+**Environment Variables:** Secrets such as BASE_URL and CYPRESS_TAGS are securely injected from GitHub Secrets.
+
+**Report Generation:** Generates a Mochawesome report and uploads it as an artifact for later viewing.
+
+**Node.js Setup:** Ensures the correct version of Node.js is used.
+
+**Dependency Installation:** Installs all required dependencies before running tests.
+
+**Setting Up Secrets in GitHub**
+1. Go to your repository on GitHub.
+2. Navigate to Settings > Secrets and variables > Actions.
+3. Add the following secrets:
+
+ `BASE_URL` The production or staging base URL.
+`CYPRESS_TAGS` Tags for filtering test runs (e.g., @regression, smoke, sanity, e2e).
 
 ## Author
 **Ayeni Oluwatosin**  
@@ -145,6 +158,3 @@ Feel free to connect with me for collaboration or questions.
 This project is licensed under the ISC License.
 ```
 
-### Explanation of Badges
-- **Cypress Badge:** Highlights the use of Cypress for end-to-end testing.
-- **Mochawesome Badge:** Highlights the integration of `cypress-mochawesome-reporter` for reporting.
