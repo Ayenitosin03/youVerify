@@ -1,0 +1,29 @@
+{
+  "name": "youverify",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "cy:open:test:ui": "dotenv -- npx cypress open --browser chrome",
+    "cypress:run": "dotenv -- npx cypress run --browser chrome"
+  },
+  "keywords": [],
+  "author": "Ayeni Oluwatosin",
+  "license": "ISC",
+  "description": "",
+  "cypress-cucumber-preprocessor": {
+    "filterSpecs": true,
+    "omitFiltered": true,
+    "stepDefinitions": "cypress/e2e/step_definitions/*.ts"
+  },
+  "devDependencies": {
+    "@badeball/cypress-cucumber-preprocessor": "^21.0.3",
+    "@bahmutov/cypress-esbuild-preprocessor": "^2.2.3",
+    "@cypress/browserify-preprocessor": "^3.0.2",
+    "@faker-js/faker": "^9.2.0",
+    "cypress": "^13.16.0",
+    "cypress-mochawesome-reporter": "^3.8.2",
+    "dotenv-cli": "^7.4.4",
+    "typescript": "^5.7.2"
+  }
+}
+
