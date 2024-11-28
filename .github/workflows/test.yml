@@ -1,0 +1,49 @@
+name: Cypress Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  cypress:
+    name: Run Cypress Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the code
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      # Step 3: Install dependencies
+      - name: Install Dependencies
+        run: npm install
+
+      # Step 4: Add .env support
+      - name: Load Environment Variables
+        run: cp .env.example .env
+
+      # Step 5: Run Cypress tests
+      - name: Run Cypress Tests
+        run: npm run cypress:run
+        env:
+          NODE_ENV: development
+          BASE_URL: ${{ secrets.BASE_URL }}
+          CYPRESS_TAGS: ${{ secrets.CYPRESS_TAGS }}
+
+      # Step 6: Generate and upload Mochawesome report
+      
+      - name: Upload Test Results
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-results
+          path: cypress/reports
