@@ -1,9 +1,16 @@
 
 
 # Youverify Cypress Cucumber TS Project
+<div align="center">
+  <a href="https://youverify.co/">
+    <img src="https://youverify.co/_nuxt/img/youverify.3f97dd2.svg" alt="Youverify Logo" width="100" />
+  </a>
+</div>
 
-![Cypress](https://img.shields.io/badge/Cypress-E2E%20Testing-brightgreen?logo=cypress&style=flat-square)
-![Mochawesome](https://img.shields.io/badge/Mochawesome-Reporting-blueviolet?style=flat-square)
+<p align="center">
+  <img src="https://img.shields.io/badge/Cypress-E2E%20Testing-brightgreen?logo=cypress&style=flat-square" alt="Cypress Badge">
+  <img src="https://img.shields.io/badge/Mochawesome-Reporting-blueviolet?style=flat-square" alt="Mochawesome Badge">
+</p>
 
 This project leverages **Cypress**, **Cucumber**, and **TypeScript** to automate testing for [saucedemo.com](https://saucedemo.com). The project follows a BDD (Behavior-Driven Development) approach, integrating **Cucumber** for Gherkin-based test specifications.
 
@@ -20,7 +27,7 @@ Ensure you have the following installed:
 ### Installation
 1. Clone the repository:
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/Ayenitosin03/youVerify.git
    cd youverify-assessment
    ```
 
@@ -129,6 +136,59 @@ Modify the `BASE_URL` in the `.env` file to switch between environments:
 ---
 # CI/CD 
 
+
+```yml
+name: Cypress Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  cypress:
+    name: Run Cypress Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the code
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      # Step 3: Install dependencies
+      - name: Install Dependencies
+        run: npm install
+
+      # Step 4: Add .env support
+      - name: Load Environment Variables
+        run: cp .env.example .env
+
+      # Step 5: Run Cypress tests
+      - name: Run Cypress Tests
+        run: npm run cypress:run
+        env:
+          NODE_ENV: development
+          BASE_URL: ${{ secrets.BASE_URL }}
+          CYPRESS_TAGS: ${{ secrets.CYPRESS_TAGS }}
+
+      # Step 6: Generate and upload Mochawesome report
+      
+      - name: Upload Test Results
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-results
+          path: cypress/reports
+
+```
 ## Key Points
 **Triggering Events:** The workflow runs on pushes and pull requests to the main branch.
 
