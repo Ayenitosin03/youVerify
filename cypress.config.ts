@@ -49,7 +49,6 @@ export default defineConfig({
     embeddedScreenshots: true,
     inlineAssets: true,
     saveAllAttempts: false,
-    autoOpen:true,
     saveJson: true
   },
   
