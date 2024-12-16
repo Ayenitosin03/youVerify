@@ -7,6 +7,8 @@ on:
   pull_request:
     branches:
       - main
+  workflow_dispatch:
+    
 
 jobs:
   cypress:
@@ -41,7 +43,7 @@ jobs:
           CYPRESS_TAGS: ${{ secrets.CYPRESS_TAGS }}
 
       # Step 6: Generate and upload Mochawesome report
-      
+
       - name: Upload Test Results
         uses: actions/upload-artifact@v3
         with:
